@@ -72,7 +72,7 @@ export default function Login() {
 
             <button
               type="submit"
-              className="mt-6 p-3 hover:text-white border-2 border-[#2A9E00] text-green-600 rounded-md hover:bg-[#2A9E00]"
+              className="mt-6 p-3 text-white   hover:bg-[#238200] rounded-md bg-[#2A9E00]"
             >
               Login
             </button>

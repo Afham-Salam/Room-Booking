@@ -25,7 +25,7 @@ export const navitems = [
     {
       key:3,
       label:"Book Now",
-      path:"#", 
+      path:"/rooms", 
     },
     {
       key:4,
@@ -69,3 +69,24 @@ export const navitems = [
     },
   ];
   
+  export const reviews = [
+    {
+      name: "Alice Johnson",
+      review: "Amazing experience! The room was spotless and had a wonderful view. Highly recommend!",
+      location: "New York, USA",
+      image: "/room2.avif", 
+    },
+    {
+      name: "Carlos Rivera",
+      review: "The staff was incredibly helpful and friendly. I enjoyed every moment of my stay.",
+      location: "Madrid, Spain",
+      image: "/room4.jpg",
+    },
+    {
+      name: "Sophie Li",
+      review: "Great amenities and beautiful decor. I felt right at home. Will definitely come back!",
+      location: "Toronto, Canada",
+      image: "/room4.jpg",
+    },
+    // Add more reviews as needed
+  ];

@@ -10,15 +10,16 @@ import slidderImg2 from "../assets/slidderImg2.jpg";
 import slidderImg3 from "../assets/slidderImg3.jpg";
 import slidderImg4 from "../assets/slidderImg4.jpg";
 import { roomDetails } from "../utils/data";
-import Navbar from "../componets/Navbar";
 import Cards from "../componets/Card";
 import Card from "../componets/Card";
 import RoomImage from "/room5.jpg";
+import Footer from "../componets/Footer";
+import Review from "../componets/Review";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
+      
       {/*slidder*/}
       <section className="h-1/2 w-full ">
         <Swiper
@@ -104,7 +105,7 @@ export default function Home() {
         {/* Text Section */}
         <div className="w-full lg:w-[500px] lg:pl-10">
           <p className="text-xs md:text-sm font-semibold text-[#2A9E00] uppercase">
-            About Royalking
+            About BookaRoom
           </p>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1e1e1e] mt-2">
             Luxury Hotel in The Heart of San Francisco.
@@ -122,29 +123,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full h-screen flex-col   flex  items-center py-10">
+      <section className="w-full lg:h-screen flex-col   flex  items-center py-10">
         <p className="text-[35px] text-center py-10 font-semibold first-letter:text-[#2A9E00] first-letter:text-[50px]">
           Rooms
         </p>
-
         <Card />
       </section>
-
-
-
-      <section>
-      <div className="relative overflow-hidden py-4 shadow-lg rounded-lg">
-  <div className="absolute inset-0 "></div> {/* Background overlay */}
-  <div className="relative inline-block animate-scroll text-black text-lg font-semibold">
-    
-    <span className="mx-4">🛎️ Special Offer: Get 20% off your stay!</span>
-    <span className="mx-4">🌟 Book now and enjoy exclusive amenities!</span>
-    <span className="mx-4">🌴 Relax and unwind at our luxury hotel!</span>
-    
-  </div>
-</div>
-
+      
+      <section className="w-full lg:h-screen flex-col   flex  items-center py-10">
+        <p className="text-[35px] text-center py-10 font-semibold first-letter:text-[#2A9E00] first-letter:text-[50px]">
+          Reviews
+        </p>
+       <Review/>
       </section>
+
+      
+
     </>
   );
 }

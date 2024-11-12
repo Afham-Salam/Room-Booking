@@ -9,7 +9,7 @@ export default function Card() {
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-center items-center">
    {
     room.map((item)=>(
-      <div key={item.key} className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg lg:w-[550px] overflow-hidden">
+      <div key={item.key} className="flex flex-col md:flex-row bg-white shadow-lg rounded-lg lg:w-[550px] overflow-hidden transform transition-transform duration-300 hover:scale-105">
  
       <div className="w-[300px]">
         <img

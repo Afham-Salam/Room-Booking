@@ -11,6 +11,7 @@ import Index from './pages/Index.jsx'
 import Login from './componets/Login.jsx'
 import Register from './componets/Register.jsx'
 import Home from './pages/Home.jsx'
+import AllRooms from './pages/AllRooms.jsx'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path:'/home',
         element:<Home />
+      },
+      {
+        path:'/rooms',
+        element:<AllRooms />
       },
        
     ]
