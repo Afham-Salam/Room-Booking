@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { navitems } from "../utils/data";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import MobileMenu from "./Mobilemenu";
 
 export default function Navbar() {
+  const navigate = useNavigate(); // Correct usage of useNavigate
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/"); // Redirects to the home or login page after logout
+  };
+
   const [menu, setMenu] = useState(false);
 
   return (
@@ -58,20 +65,9 @@ export default function Navbar() {
       </div>
 
       {/* Profile Icon */}
-      <div className="flex items-center gap-4 ml-auto lg:ml-0">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="30"
-          height="30"
-          viewBox="0 0 512 512"
-        >
-          <path
-            fill="#2A9E00"
-            fillRule="evenodd"
-            d="M256 42.667A213.333 213.333 0 0 1 469.334 256c0 
-            117.821-95.513 213.334-213.334 213.334c-117.82 0-213.333-95.513-213.333-213.334C42.667 138.18 138.18 42.667 256 42.667m21.334 234.667h-42.667c-52.815 0-98.158 31.987-117.715 77.648c30.944 43.391 81.692 71.685 139.048 71.685s108.104-28.294 139.049-71.688c-19.557-45.658-64.9-77.645-117.715-77.645M256 106.667c-35.346 0-64 28.654-64 64s28.654 64 64 64s64-28.654 64-64s-28.653-64-64-64"
-          />
-        </svg>
+      <div onClick={logout} className="flex items-center gap-4 ml-auto lg:ml-0 cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+      <path fill="#2A9E00" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10M7 11V8l-5 4l5 4v-3h8v-2z"/></svg>
       </div>
     </div>
   );

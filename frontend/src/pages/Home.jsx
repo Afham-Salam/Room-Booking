@@ -10,10 +10,8 @@ import slidderImg2 from "../assets/slidderImg2.jpg";
 import slidderImg3 from "../assets/slidderImg3.jpg";
 import slidderImg4 from "../assets/slidderImg4.jpg";
 import { roomDetails } from "../utils/data";
-import Cards from "../componets/Card";
 import Card from "../componets/Card";
 import RoomImage from "/room5.jpg";
-import Footer from "../componets/Footer";
 import Review from "../componets/Review";
 
 export default function Home() {

@@ -16,11 +16,19 @@ const auth = (req, res, next) => {
 };
 
 
+
 const adminAuth = (req, res, next) => {
-  if (req.user.role !== "admin") {  
-    return res.status(403).json({ msg: "Access denied. Admins only." });  
+  if (!req.user) {
+    return res.status(401).json({ message: 'Not authenticated' });
   }
-  next();  
+
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Forbidden: Admins only' });
+  }
+
+  next(); 
 };
+
+module.exports = { adminAuth };
 
 module.exports = { auth, adminAuth };

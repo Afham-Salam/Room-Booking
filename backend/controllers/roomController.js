@@ -22,3 +22,9 @@ exports.createRoom=async(req,res)=>{
     }
 
 }
+
+exports.deleteRoom = async (req, res) => {
+  const { roomId } = req.params;
+  await Room.findByIdAndDelete(roomId);
+  res.json({ message: "Room deleted successfully" });
+};

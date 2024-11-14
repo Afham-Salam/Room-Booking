@@ -41,16 +41,21 @@ export default function Register() {
   return (
     <div className="w-full h-screen relative">
       <div
-        className="w-full lg:w-full h-full lg:h-screen bg-cover bg-center absolute lg:relative"
+        className="w-full h-full bg-cover bg-center absolute"
         style={{
           backgroundImage: `url(${roomImage})`,
         }}
       >
-        <div className="w-full h-full flex  items-center justify-center  lg:bg-none bg-opacity-90 p-8 lg:relative z-10">
-          <div className="w-full max-w-md bg-white bg-opacity-30 p-8 rounded-md shadow-lg backdrop-blur-lg backdrop-filter">
-            <p className="text-[40px] font-bold mb-6">Create an account</p>
-            <form className="flex flex-col space-y-4" onSubmit={handleRegister}>
-              <label className="font-medium">Enter Full Name</label>
+        <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-60 p-4 md:p-8">
+          <div className="w-full  max-w-md bg-white bg-opacity-30 p-6  md:p-8 rounded-md shadow-lg backdrop-blur-lg backdrop-filter">
+            <p className="text-2xl md:text-4xl font-bold mb-4 text-center text-white">
+              Create an account
+            </p>
+            <form
+              className="flex flex-col lg:space-y-4 space-y-2 md:space-y-1"
+              onSubmit={handleRegister}
+            >
+              <label className="font-medium text-white">Full Name</label>
               <input
                 type="text"
                 name="name"
@@ -61,7 +66,7 @@ export default function Register() {
                 required
               />
 
-              <label className="font-medium">Enter Email Address</label>
+              <label className="font-medium text-white">Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -72,7 +77,7 @@ export default function Register() {
                 required
               />
 
-              <label className="font-medium">Enter Password</label>
+              <label className="font-medium text-white">Password</label>
               <input
                 name="password"
                 type="password"
@@ -85,16 +90,16 @@ export default function Register() {
 
               <button
                 type="submit"
-                className="mt-6 p-3 text-white  hover:bg-[#238200]   rounded-md bg-[#2A9E00]"
+                className="mt-4 p-3 text-white bg-[#2A9E00] hover:bg-[#238200] rounded-md w-full"
               >
                 Sign Up
               </button>
               {message && (
                 <p className="text-center text-red-500 mt-4">{message}</p>
               )}
-              <p className="text-center">
+              <p className="text-center text-white mt-2">
                 Already have an account?{" "}
-                <Link to={"/login"} className="text-blue-600">
+                <Link to={"/login"} className="text-blue-400 hover:underline">
                   Login
                 </Link>
               </p>

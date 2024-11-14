@@ -9,6 +9,7 @@ var cors = require('cors');  // Import CORS
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const { auth } = require('./middleware/authMiddleware');
 
 var app = express();
 
@@ -25,14 +26,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Define routes
 
 app.use('/api/auth', require('./routes/auth'));
+
+app.use(auth)
 app.use('/api/rooms', require('./routes/rooms'));
-// app.use('/api/bookings', require('./routes/bookings'));
+//  app.use('/api/bookings', require('./routes/bookings'));
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

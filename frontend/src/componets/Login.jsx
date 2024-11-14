@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import roomImage from "../assets/room.jpg";
-import axios from 'axios';
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function Login() {
+  
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     email: "",
@@ -15,39 +16,54 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', userData);
+      const response = await axios.post("http://localhost:3000/api/auth/login", userData);
       setMessage(response.data.message);
-      localStorage.setItem('token', response.data.token);
-      navigate("/home")
+      localStorage.setItem("token", response.data.token);
+      const userRole = getUserRole(response.data.token); 
+      
+      if (userRole === "admin") {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/home");
+      }
     } catch (error) {
-      setMessage(error.response ? error.response.data.message : 'Login failed');
+      setMessage(error.response?.data?.message || "Login failed");
+    }
+  };
+
+  const getUserRole = (token) => {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload.role;
+    } catch {
+      return "";
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserData(prevState => ({
+    setUserData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
   return (
-   <>
-    <div className=" h-screen">
-      
-      {/* Form Section with Background on Medium and Small Screens */}
-      <div 
-        className="w-full lg:w-full h-full flex items-center justify-center bg-white lg:bg-none bg-cover bg-center"
+    <div className="w-full h-screen relative">
+      {/* Form Section with Background Image */}
+      <div
+        className="w-full h-full flex items-center justify-center bg-cover bg-center"
         style={{
           backgroundImage: `url(${roomImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
         }}
       >
-        <div className="w-full max-w-md bg-white bg-opacity-30 p-8 rounded-md shadow-lg backdrop-blur-lg backdrop-filter">
+        {/* Dark overlay for text contrast */}
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+
+        {/* Form Container */}
+        <div className="relative text-white w-full max-w-md bg-white bg-opacity-30 p-8 rounded-md shadow-lg backdrop-blur-lg backdrop-filter z-10">
           <p className="text-[40px] font-bold mb-6">Login to Your Account</p>
-          <form className="flex flex-col  space-y-3" onSubmit={handleLogin}>
+          <form className="flex flex-col space-y-3" onSubmit={handleLogin}>
             <label className="font-medium">Email Address</label>
             <input
               type="email"
@@ -72,20 +88,17 @@ export default function Login() {
 
             <button
               type="submit"
-              className="mt-6 p-3 text-white   hover:bg-[#238200] rounded-md bg-[#2A9E00]"
+              className="mt-6 p-3 text-white hover:bg-[#238200] rounded-md bg-[#2A9E00]"
             >
               Login
             </button>
             {message && <p className="text-center text-red-500 mt-4">{message}</p>}
             <p className="text-center">
-              Don't have an account? <Link to={"/register"} className="text-blue-600">Sign Up</Link>
+              Don't have an account? <Link to="/register" className="text-blue-600">Sign Up</Link>
             </p>
           </form>
         </div>
       </div>
-
-
-     
-    </div></>
+    </div>
   );
 }
