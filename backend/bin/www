@@ -28,7 +28,7 @@ var server = http.createServer(app);
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/rooms-booking", { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect("mongodb://localhost:27017/rooms-booking");
     console.log('MongoDB connected');
     server.listen(port);
   server.on('error', onError);

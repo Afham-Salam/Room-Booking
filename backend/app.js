@@ -33,10 +33,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Define routes
 
 app.use('/api/auth', require('./routes/auth'));
-
-app.use(auth)
+// app.use(auth)
+app.use('/api/users', require('./routes/users'));
 app.use('/api/rooms', require('./routes/rooms'));
-//  app.use('/api/bookings', require('./routes/bookings'));
+app.use('/api/bookings', require('./routes/bookings'));
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {

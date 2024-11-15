@@ -32,7 +32,8 @@ const ProtectedRoute = ({ role }) => {
   if (!isAuthenticated()) {
     return <Navigate to="/login" replace />;
   }
-
+  console.log("role = ",getUserRole());
+  
   if (role && getUserRole() !== role) {
     return <Navigate to="/home" replace />;
   }

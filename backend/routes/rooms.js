@@ -3,7 +3,7 @@ const { getRooms, createRoom,deleteRoom } = require('../controllers/roomControll
 const { auth, adminAuth } = require('../middleware/authMiddleware');
 const router = express.Router();
 
-router.get('/', auth, getRooms);
+router.get('/all', auth, getRooms);
 router.post('/create', auth, adminAuth, createRoom);
 router.delete('/:roomId',auth, adminAuth,deleteRoom)
 

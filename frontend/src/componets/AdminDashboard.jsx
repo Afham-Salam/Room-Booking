@@ -20,17 +20,17 @@ const AdminDashboard = () => {
         <h2 className="text-2xl  font-bold mb-6">Admin Dashboard</h2>
         <ul>
           <li className="mb-4">
-            <Link to="/roomsmanagement" className="text-white hover:text-gray-200">
+            <Link to="roomsmanagement" className="text-white hover:text-gray-200">
               Room Management
             </Link>
           </li>
           <li className="mb-4">
-            <Link to="/usermanagement" className="text-white hover:text-gray-200">
+            <Link to="usermanagement" className="text-white hover:text-gray-200">
               User Management
             </Link>
           </li>
           <li className="mb-4">
-            <Link to="/bookingmanagement" className="text-white hover:text-gray-200">
+            <Link to="bookingmanagement" className="text-white hover:text-gray-200">
               Booking Management
             </Link>
           </li>

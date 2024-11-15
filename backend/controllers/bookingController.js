@@ -1,4 +1,5 @@
 const Booking = require('../models/Booking');
+const Room = require('../models/Room');
 
 
 exports.createBooking = async (req, res) => {
@@ -15,12 +16,13 @@ exports.createBooking = async (req, res) => {
   
       room.availability = false;
       await room.save();
-  
+   
       res.status(201).json(newBooking);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
   };
+  
 
   exports.getUserBookings = async (req, res) => {
     try {

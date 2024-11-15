@@ -13,6 +13,7 @@ exports.getRooms = async (req, res) => {
 
 exports.createRoom=async(req,res)=>{
     try{
+      
         const room=new Room(req.body)
         await room.save();
         res.status(201).json(room)  
