@@ -19,7 +19,7 @@ export const navitems = [
     {
       key:2,
       label:"About",
-      path:"/products",
+      path:"#about",
      
     },
     {
@@ -30,7 +30,7 @@ export const navitems = [
     {
       key:4,
       label:"Contact Us",
-      path:"#", 
+      path:"#contact", 
     },
     
   ]

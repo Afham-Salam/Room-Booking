@@ -17,3 +17,6 @@
     animation: scroll 20s linear infinite;
   }
   
+  html{
+    scroll-behavior: smooth;
+  }

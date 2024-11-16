@@ -29,3 +29,20 @@ exports.deleteRoom = async (req, res) => {
   await Room.findByIdAndDelete(roomId);
   res.json({ message: "Room deleted successfully" });
 };
+
+exports.editRoom=async(req,res)=>{
+  const {roomId}=req.params;
+  try {
+    const room = await Room.findByIdAndUpdate(roomId, req.body, {
+      new: true, 
+      runValidators: true, 
+    });
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+    res.json(room);
+  }
+  catch(error){
+    res.status(500).json({ error: error.message });
+  }
+}

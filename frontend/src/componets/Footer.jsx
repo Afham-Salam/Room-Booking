@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#C7E3BE]  font-semibold p-8 md:p-12 border-t-2">
+    <footer id="contact" className="bg-[#C7E3BE]  font-semibold p-8 md:p-12 border-t-2">
       <div className=" mx-auto flex flex-col md:flex-row md:justify-between gap-8">
         {/* Brand Section */}
         <aside className=" md:text-left">

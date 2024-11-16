@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "antd": "^5.22.1"
+  },
+  "devDependencies": {
+    "daisyui": "^4.12.14"
   }
 }

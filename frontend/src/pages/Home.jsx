@@ -90,7 +90,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="flex flex-col md:flex-row items-center justify-center  gap-10  p-6 md:p-10 lg:p-16 rounded-lg ">
+      <section id="about" className="flex flex-col md:flex-row items-center justify-center  gap-10  p-6 md:p-10 lg:p-16 rounded-lg ">
         {/* Image Section */}
         <div className=" mb-6 lg:mb-0">
           <img

@@ -10,7 +10,7 @@ export default function RoomManagement() {
     availability: true,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e) => { 
     const { name, value, type, checked } = e.target;
     setRoomData((prevData) => ({
       ...prevData,
@@ -24,6 +24,7 @@ export default function RoomManagement() {
     
       console.log("Room Data:", roomData);  
     const res = await api.post("/rooms/create",roomData)
+    console.log({res})
 
     setRoomData({
       roomName: "",

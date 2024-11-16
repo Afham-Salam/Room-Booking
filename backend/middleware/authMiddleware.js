@@ -4,6 +4,7 @@ const auth = (req, res, next) => {
   console.log({token: req.get("Authorization")});
   
   const token = req.get("Authorization");
+  
   if (!token) {
     return res.status(401).json({ msg: "No token, authorization denied" });
   }
