@@ -16,6 +16,8 @@ import RoomManagement from './componets/RoomMangement.jsx';
 import BookingManagement from './componets/BookingManagement.jsx';
 import UserManagement from './componets/UserManagement.jsx';
 import ProtectedRoute from './componets/ProtectedRoute.jsx'; // Import the ProtectedRoute component
+import RoomList from './pages/RoomList.jsx';
+import Contact from './pages/Contact.jsx';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
       {
         path: '/home',
         element: <Home />,
+      },
+      {
+        path: '/room',
+        element: <RoomList />,
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
       },
 
       // Protecting the admin-related routes

@@ -8,7 +8,7 @@ export default function Footer() {
       <div className=" mx-auto flex flex-col md:flex-row md:justify-between gap-8">
         {/* Brand Section */}
         <aside className=" md:text-left">
-          <p className="text-[20px] md:text-[25px] text-black font-semibold tracking-widest">
+          <p className="text-[20px] md:text-[25px] text-black font-bold tracking-widest">
             <span className="text-[#2A9E00]">Book</span>a
             <span className="text-[#2A9E00]">Room</span>
           </p>
@@ -90,7 +90,7 @@ export default function Footer() {
 
       {/* Footer Bottom */}
       <div className="mt-8 border-t border-black pt-4 text-center text-black">
-        <p>© 2024 Book Mingle. All rights reserved.</p>
+        <p>© 2024 BookaRoom. All rights reserved.</p>
       </div>
     </footer>
   );

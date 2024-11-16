@@ -44,7 +44,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <div className="flex-grow lg:flex-grow-0 p-4">
-          <p className="text-[20px] md:text-[25px] font-semibold tracking-widest">
+          <p className="text-[20px] md:text-[25px] font-bold tracking-widest">
             <span className="text-[#2A9E00]">Book</span>a
             <span className="text-[#2A9E00]">Room</span>
           </p>
@@ -67,7 +67,7 @@ export default function Navbar() {
       {/* Profile Icon */}
       <div onClick={logout} className="flex items-center gap-4 ml-auto lg:ml-0 cursor-pointer">
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
-      <path fill="#2A9E00" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10M7 11V8l-5 4l5 4v-3h8v-2z"/></svg>
+      <path fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.023 5.5a9 9 0 1 0 9.953 0M12 2v8" color="black"/></svg>
       </div>
     </div>
   );
