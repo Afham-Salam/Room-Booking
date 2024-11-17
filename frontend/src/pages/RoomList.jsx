@@ -28,7 +28,6 @@ export default function RoomList() {
             <p className="text-left md:text-left">Price per Hour</p>
             <p className="text-left md:text-left">Available</p>
           </div>
-
           {/* Book Now Button */}
           <button  onClick={()=>setOpen(!open)} className="bg-[#2A9E00] text-white py-2 px-10 rounded-sm hover:bg-[#238200] ">
             Book&nbsp;Now
