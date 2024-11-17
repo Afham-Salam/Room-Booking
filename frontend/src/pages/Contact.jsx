@@ -76,7 +76,6 @@ export default function Contact() {
 
   {/* Divider */}
   <div className="w-16 h-1 bg-[#2A9E00] rounded-full"></div>
-
   {/* Address Details */}
   <div className="space-y-4 text-lg text-center">
     <h2 className="text-2xl font-bold text-gray-800">Our Address</h2>
