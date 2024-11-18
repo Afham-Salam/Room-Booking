@@ -1,53 +1,123 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import { FiMenu, FiX } from 'react-icons/fi'; 
+import { dashboardcard } from '../utils/data';
+import api from "../api"; 
 
 const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [roomLen, setRoomLen] = useState(0);
+  const [userLen, setUserLen] = useState(0);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await api.get("/users/all"); 
+        setUserLen(res.data.users.length); 
+        console.log(res.data.users.length); 
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const res = await api.get("/rooms/all"); 
+        setRoomLen(res.data.length); 
+        
+      } catch (error) {
+        console.error("Error fetching rooms:", error);
+      }
+    };
+
+    fetchRooms();
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
   return (
-    <div className="flex h-screen w-full bg-gray-100 overflow-hidden">
+    <div className="flex h-screen w-full bg-gray-100 overflow-hidden relative">
       {/* Sidebar */}
       <div
-        className={`fixed lg:relative inset-0 lg:w-64 bg-[#2A9E00] text-white p-5 transition-all duration-300 ${
-          sidebarOpen ? 'block' : 'hidden lg:block'
-        }`}
+        className={`fixed top-0 left-0 h-full bg-[#2A9E00] text-white p-5 transition-transform duration-300 z-40
+          ${sidebarOpen ? 'translate-x-0 top-[72px] lg:top-0' : '-translate-x-full lg:translate-x-0 top-[72px] lg:top-0'}
+          lg:relative lg:translate-x-0 lg:w-64`}
       >
-        <h2 className="text-2xl  font-bold mb-6">Admin Dashboard</h2>
+        {/* Sidebar Close Button with Padding */}
+        <button
+          onClick={toggleSidebar}
+          className="lg:hidden absolute top-0 right-4  text-2xl text-white focus:outline-none"
+        >
+          <FiX />
+        </button>
+
+        <h2 className="text-2xl font-bold mb-6">Admin Dashboard</h2>
         <ul>
           <li className="mb-4">
-            <Link to="roomsmanagement" className="text-white hover:text-gray-200">
+            <Link
+              to="roomsmanagement"
+              className="text-white hover:bg-gray-200 hover:text-[#2A9E00] block px-3 py-2 rounded-lg transition"
+            >
               Room Management
             </Link>
           </li>
           <li className="mb-4">
-            <Link to="usermanagement" className="text-white hover:text-gray-200">
+            <Link
+              to="usermanagement"
+              className="text-white hover:bg-gray-200 hover:text-[#2A9E00] block px-3 py-2 rounded-lg transition"
+            >
               User Management
             </Link>
           </li>
           <li className="mb-4">
-            <Link to="bookingmanagement" className="text-white hover:text-gray-200">
+            <Link
+              to="bookingmanagement"
+              className="text-white hover:bg-gray-200 hover:text-[#2A9E00] block px-3 py-2 rounded-lg transition"
+            >
               Booking Management
             </Link>
           </li>
         </ul>
       </div>
 
+      {/* Backdrop for small screens */}
+      {sidebarOpen && (
+        <div
+          onClick={toggleSidebar}
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+        ></div>
+      )}
+
       {/* Main Content */}
-      <div className="flex-1 p-8 ml-0 lg:ml-64 transition-all duration-300">
+      <div className="flex-1 p-8 transition-all duration-300">
         {/* Sidebar Toggle Button */}
         <button
           onClick={toggleSidebar}
-          className="lg:hidden mb-4 text-xl text-[#2A9E00] p-2 rounded-lg"
+          className="lg:hidden mb-4 text-2xl text-[#2A9E00] p-2 rounded-lg focus:outline-none"
         >
-          {sidebarOpen ? 'Close Sidebar' : 'Open Sidebar'}
+          {sidebarOpen ? <FiX /> : <FiMenu />}
         </button>
 
-      
+        <p className="text-3xl font-bold text-[#2A9E00]">Welcome to Admin Dashboard</p>
+
+        {/* Cards Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+          {dashboardcard.map((it) => (
+            <div key={it.key} className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-semibold text-[#2A9E00]">{it.name}</h3>
+              <p className="text-2xl font-bold text-gray-700 mt-2">
+                {/* Conditional Rendering */}
+                {it.count === 'rooms' ? roomLen : it.count === 'users' ? userLen : it.count}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

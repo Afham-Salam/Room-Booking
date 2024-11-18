@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import RoomImage from "/room1.jpg";
 import Form from "../componets/Form";
-import api from "../api"; // Ensure correct API import
+import api from "../api"; 
 
 export default function RoomList() {
   const [open, setOpen] = useState(false); // State for toggling the form
@@ -23,8 +23,8 @@ export default function RoomList() {
   }, []);
 
   const handleBookNow = (room) => {
-    setSelectedRoom(room); // Set the selected room
-    setOpen(true); // Open the form
+    setSelectedRoom(room); 
+    setOpen(true); 
   };
 
   return (
@@ -67,7 +67,7 @@ export default function RoomList() {
 
           {/* Book Now Button */}
           <button
-            onClick={() => handleBookNow(item)}
+            onClick={() => handleBookNow()}
             className="bg-[#2A9E00] text-white py-2 px-10 rounded-sm hover:bg-[#238200]"
           >
             Book&nbsp;Now

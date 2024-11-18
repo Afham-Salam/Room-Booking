@@ -18,7 +18,7 @@ export default function MobileMenu() {
         >
           <ul className="flex flex-col md:gap-5 md:p-4 gap-10 text-[12px] p-3">
             {navitems.map((it) => (
-              <li key={it.key} className="text-[#ad5051] font-bold">
+              <li key={it.key} className="text-[#2A9E00] font-bold">
                 <NavLink to={it.path} onClick={closeMenu}>
                   {it.label}
                 </NavLink>

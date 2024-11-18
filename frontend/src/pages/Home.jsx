@@ -14,9 +14,10 @@ import Card from "../componets/Card";
 import RoomImage from "/room5.jpg";
 import Review from "../componets/Review";
 import { Link } from "react-router-dom";
+import api from "../api"; 
 
 export default function Home() {
-const [len,setLen]=useState(1)
+const [len,setLen]=useState(0)
   useEffect(() => {
     const fetchRooms = async () => {
       try {

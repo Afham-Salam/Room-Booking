@@ -92,3 +92,21 @@ export const navitems = [
       image: "/room4.jpg",
     },
   ];
+  export  const dashboardcard=[
+    {
+      key:1 ,
+      name: "Total Rooms",
+      count: "rooms", 
+    },
+    {
+      key: 2,
+      name: "Total Users",
+      count: "users", 
+    },
+    {
+      key: 3,
+      
+      name: "Total Bookings",
+      count: 0,
+     }
+  ];
