@@ -1,6 +1,11 @@
 import React from "react";
 
 export default function Contact() {
+  const handlealert=()=>{
+    alert("Message sended successfully")
+
+
+  }
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="container mx-auto bg-white shadow-md rounded-md overflow-hidden md:flex">
@@ -58,6 +63,7 @@ export default function Contact() {
             </div>
             <button
               type="submit"
+              onClick={handlealert}
               className=" bg-[#2A9E00] text-white py-2 px-4 hover:bg-[#238200] "
             >
               Send Message
@@ -94,7 +100,9 @@ export default function Contact() {
   </div>
 
   {/* Call-to-Action */}
-  <button className="mt-6 bg-[#2A9E00] text-white py-2 px-6  hover:bg-[#238200] ">
+  <button 
+  onClick={handlealert}
+  className="mt-6 bg-[#2A9E00] text-white py-2 px-6  hover:bg-[#238200] ">
     Contact Us Now
   </button>
 </div>

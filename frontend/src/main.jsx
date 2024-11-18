@@ -18,6 +18,7 @@ import UserManagement from './componets/UserManagement.jsx';
 import ProtectedRoute from './componets/ProtectedRoute.jsx'; // Import the ProtectedRoute component
 import RoomList from './pages/RoomList.jsx';
 import Contact from './pages/Contact.jsx';
+import YourBooking from './pages/YourBooking.jsx';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: '/room',
         element: <RoomList />,
+      },
+      {
+        path: '/order',
+        element: <YourBooking />,
       },
       {
         path: '/contact',

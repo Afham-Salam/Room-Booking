@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -13,8 +13,23 @@ import { roomDetails } from "../utils/data";
 import Card from "../componets/Card";
 import RoomImage from "/room5.jpg";
 import Review from "../componets/Review";
+import { Link } from "react-router-dom";
 
 export default function Home() {
+const [len,setLen]=useState(1)
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const res = await api.get("/rooms/all"); // Fetching data from API
+        setLen(res.data.length);
+        console.log(res.data); // Debugging API response
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchRooms();
+  }, []);
   return (
     <>
       
@@ -76,16 +91,16 @@ export default function Home() {
                 <div class="flex items-center gap-4 w-full md:w-auto">
                   <div class="flex flex-col gap-2">
                     <strong class="text-[20px]  ">{item.title}</strong>
-                    <p class="text-[17px] text-black font-bold">0</p>
+                    <p class="text-[17px] text-black font-bold">{len}</p>
                   </div>
                 </div>
               ))}
 
               <div class="flex items-center gap-4 w-full md:w-auto"></div>
             </div>
-            <button className="bg-[#2A9E00] text-white py-2 px-10 rounded-sm hover:bg-[#238200] active:bg-[#1E6E00] focus:ring-2 focus:ring-offset-2 focus:ring-[#2A9E00] transition duration-200">
+            <Link to="/room" className="bg-[#2A9E00] text-white py-2 px-10 rounded-sm hover:bg-[#238200] active:bg-[#1E6E00] focus:ring-2 focus:ring-offset-2 focus:ring-[#2A9E00] transition duration-200">
               Book&nbsp;Now
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -106,7 +121,7 @@ export default function Home() {
             About BookaRoom
           </p>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1e1e1e] mt-2">
-            Luxury Hotel in The Heart of San Francisco.
+            Luxury Stay in The Heart of India.
           </h2>
           <p className="text-sm md:text-base lg:text-lg text-[#6b6b6b] mt-4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Adipiscing

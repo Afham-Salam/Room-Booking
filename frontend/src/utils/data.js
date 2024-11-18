@@ -25,7 +25,7 @@ export const navitems = [
     {
       key:3,
       label:"My Booking ",
-      path:"/room", 
+      path:"/order", 
     },
     {
       key:4,

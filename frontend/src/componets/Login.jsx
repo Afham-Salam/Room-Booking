@@ -81,7 +81,7 @@ export default function Login() {
               name="password"
               value={userData.password}
               onChange={handleChange}
-              className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-600"
+              className="p-2 border text-black rounded-md focus:outline-none focus:ring-2 focus:ring-lime-600"
               placeholder="Password"
               required
             />

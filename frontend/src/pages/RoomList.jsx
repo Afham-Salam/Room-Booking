@@ -43,7 +43,7 @@ export default function RoomList() {
 
           {/* Room Details */}
           <div className="grid grid-rows-3 gap-4 lg:gap-x-96 md:grid-cols-2 md:gap-x-12">
-            <p className="text-left font-semibold">Room Name : {item.roomName}</p>
+            <p className="text-left font-semibold">Name: {item.roomName}</p>
             <p className="text-left flex items-center gap-2 font-semibold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ export default function RoomList() {
               Capacity: {item.capacity}
             </p>
             <p className="text-left font-semibold">Features: {item.features.join(", ")}</p>
-            <p className="text-left font-semibold">Price per Hour: ${item.pricePerHour}</p>
+            <p className="text-left font-semibold">Price per Hour: ₹ {item.pricePerHour}</p>
             <p className="text-left font-semibold">
               Availability: {item.availability ? "Available" : "Not Available"}
             </p>
