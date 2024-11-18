@@ -5,17 +5,16 @@ export default function UserManagement() {
   const [data, setData] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editFormData, setEditFormData] = useState({ name: "", email: "", role: "" });
-
+  
+  useEffect(() => {
   const fetch = async () => {
     try {
       const res = await api.get("/users/all");
-      setData(res.data.users); // Access the users array
+      setData(res.data.users); 
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
-  useEffect(() => {
     fetch();
   }, []);
 
@@ -47,6 +46,15 @@ export default function UserManagement() {
   const handleCancel = () => {
     setEditId(null); // Exit edit mode without saving
   };
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/users/delete/${id}`);
+      setRoomList((prev) => prev.filter((room) => room._id !== id));
+    } catch (error) {
+      console.error("Error deleting room:", error);
+    }
+  };
+
 
   return (
     <div className="h-screen bg-gray-50">
@@ -125,6 +133,7 @@ export default function UserManagement() {
                           Edit
                         </button>
                         <button
+                        onClick={()=>handleDelete(item._id)}
                           className="ml-2 px-3 py-1 bg-red-500 text-white text-sm rounded-md hover:bg-red-600"
                         >
                           Delete

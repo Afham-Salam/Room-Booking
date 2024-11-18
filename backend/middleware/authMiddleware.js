@@ -1,9 +1,12 @@
 const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
-  console.log({token: req.get("Authorization")});
+  console.log({tokenauth: req.get("Authorization")});
   
-  const token = req.get("Authorization");
+  const token = req.get("Authorization").split(" ")[1];
+
+  console.log({token});
+  
   
   if (!token) {
     return res.status(401).json({ msg: "No token, authorization denied" });
@@ -11,6 +14,8 @@ const auth = (req, res, next) => {
   
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);  
+    console.log({decoded});
+    
     req.user = decoded;  
     next();  
   } catch (error) {

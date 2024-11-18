@@ -14,7 +14,7 @@ api.interceptors.request.use(
   },
   (error) => {
     console.error("Request error:", error);
-    return Promise.reject(error); // Propagate the error for further handling
+    return Promise.reject(error); 
   }
 );
 

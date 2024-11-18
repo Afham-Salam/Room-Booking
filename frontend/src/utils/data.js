@@ -14,7 +14,7 @@ export const navitems = [
       key:1,
       label:"Home",
       path:"/home",
-      icon: "undefined"
+      
     },
     {
       key:2,
@@ -74,21 +74,21 @@ export const navitems = [
       key:1 ,
       name: "Alice Johnson",
       review: "Amazing experience! The room was spotless and had a wonderful view. Highly recommend!",
-      location: "New York, USA",
+      location: "India",
       image: "/room2.avif", 
     },
     {
       key: 2,
       name: "Carlos Rivera",
       review: "The staff was incredibly helpful and friendly. I enjoyed every moment of my stay.",
-      location: "Madrid, Spain",
+      location: "India",
       image: "/room4.jpg",
     },
     {
       key: 3,
       name: "Sophie Li",
       review: "Great amenities and beautiful decor. I felt right at home. Will definitely come back!",
-      location: "Toronto, Canada",
+      location: "India",
       image: "/room4.jpg",
     },
   ];

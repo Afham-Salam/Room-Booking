@@ -1,5 +1,6 @@
 import React from 'react'
 import { room } from '../utils/data'
+import { Link } from 'react-router-dom'
 
 export default function Card() {
   return (
@@ -36,9 +37,9 @@ export default function Card() {
         </p>
     
         {/* Book Now Button */}
-        <button className="bg-[#2A9E00] text-white py-2 mt-4 rounded-sm hover:bg-[#238200] active:bg-[#1E6E00] transition duration-200">
+        <Link to="/room" className="bg-[#2A9E00] text-center text-white py-2 mt-4 rounded-sm hover:bg-[#238200] active:bg-[#1E6E00] transition duration-200">
           Book Now
-        </button>
+        </Link>
       </div>
     </div>
     

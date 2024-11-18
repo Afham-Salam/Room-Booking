@@ -9,8 +9,6 @@ exports.getRooms = async (req, res) => {
   }
 };
 
-
-
 exports.createRoom=async(req,res)=>{
     try{
       

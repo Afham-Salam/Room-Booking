@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/all', auth, getRooms);
 router.post('/create',auth, adminAuth,createRoom);
 router.delete('edit/:roomId',auth, adminAuth,editRoom)
-router.delete('/:roomId',auth, adminAuth,deleteRoom)
+router.delete('delete/:roomId',auth, adminAuth,deleteRoom)
 
 
 module.exports = router;
