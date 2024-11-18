@@ -73,16 +73,16 @@ export default function Contact() {
 
         {/* Right Section: Address */}
         <div className="md:w-1/2 text-black bg-gray-100 p-6 flex flex-col gap-10 justify-center items-center rounded-md shadow-lg">
-  {/* Title */}
+  
   <p className="text-[24px] md:text-[32px] font-bold tracking-wider text-center">
     <span className="text-[#2A9E00]">Book</span>
     <span> a </span>
     <span className="text-[#2A9E00]">Room</span>
   </p>
 
-  {/* Divider */}
+  
   <div className="w-16 h-1 bg-[#2A9E00] rounded-full"></div>
-  {/* Address Details */}
+ 
   <div className="space-y-4 text-lg text-center">
     <h2 className="text-2xl font-bold text-gray-800">Our Address</h2>
     <p className="text-gray-600">
@@ -99,7 +99,7 @@ export default function Contact() {
     </p>
   </div>
 
-  {/* Call-to-Action */}
+  
   <button 
   onClick={handlealert}
   className="mt-6 bg-[#2A9E00] text-white py-2 px-6  hover:bg-[#238200] ">
