@@ -7,9 +7,8 @@ const isAuthenticated = () => {
   if (!token) return false;
 
   try {
-
     const payload = JSON.parse(atob(token.split(".")[1]));
-    return Boolean(payload); 
+    return Boolean(payload);
   } catch {
     return false;
   }
@@ -32,8 +31,8 @@ const ProtectedRoute = ({ role }) => {
   if (!isAuthenticated()) {
     return <Navigate to="/login" replace />;
   }
-  console.log("role = ",getUserRole());
-  
+  console.log("role = ", getUserRole());
+
   if (role && getUserRole() !== role) {
     return <Navigate to="/home" replace />;
   }

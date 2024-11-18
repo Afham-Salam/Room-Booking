@@ -11,7 +11,7 @@ export default function MobileMenu() {
 
   return (
     <div>
-      {isMenuOpened && (  
+      {isMenuOpened && (
         <div
           className="bg-white w-full md:w-screen absolute top-[70px] left-0"
           id="menu"

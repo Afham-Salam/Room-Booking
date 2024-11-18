@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import RoomImage from "/room1.jpg";
 import Form from "../componets/Form";
-import api from "../api"; 
+import api from "../api";
 
 export default function RoomList() {
-  const [open, setOpen] = useState(false); // State for toggling the form
-  const [selectedRoom, setSelectedRoom] = useState(null); // State for the selected room
-  const [data, setData] = useState([]); // State to store room data
+  const [open, setOpen] = useState(false);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await api.get("/rooms/all"); // Fetching data from API
+        const res = await api.get("/rooms/all");
         setData(res.data);
-        console.log(res.data); // Debugging API response
+        console.log(res.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -23,8 +23,8 @@ export default function RoomList() {
   }, []);
 
   const handleBookNow = (room) => {
-    setSelectedRoom(room); 
-    setOpen(true); 
+    setSelectedRoom(room);
+    setOpen(true);
   };
 
   return (
@@ -37,7 +37,7 @@ export default function RoomList() {
           {/* Room Image */}
           <img
             className="w-full md:w-60 object-cover"
-            src={RoomImage} // Replace with `item.image` if dynamic
+            src={RoomImage}
             alt="Room"
           />
 
@@ -58,14 +58,17 @@ export default function RoomList() {
               </svg>
               Capacity: {item.capacity}
             </p>
-            <p className="text-left font-semibold">Features: {item.features.join(", ")}</p>
-            <p className="text-left font-semibold">Price per Hour: ₹ {item.pricePerHour}</p>
+            <p className="text-left font-semibold">
+              Features: {item.features.join(", ")}
+            </p>
+            <p className="text-left font-semibold">
+              Price per Hour: ₹ {item.pricePerHour}
+            </p>
             <p className="text-left font-semibold">
               Availability: {item.availability ? "Available" : "Not Available"}
             </p>
           </div>
 
-          {/* Book Now Button */}
           <button
             onClick={() => handleBookNow()}
             className="bg-[#2A9E00] text-white py-2 px-10 rounded-sm hover:bg-[#238200]"

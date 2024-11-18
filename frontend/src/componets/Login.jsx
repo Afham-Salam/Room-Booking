@@ -3,9 +3,7 @@ import roomImage from "../assets/room.jpg";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-
 export default function Login() {
-  
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     email: "",
@@ -16,11 +14,14 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", userData);
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/login",
+        userData
+      );
       setMessage(response.data.message);
       localStorage.setItem("token", response.data.token);
-      const userRole = getUserRole(response.data.token); 
-      
+      const userRole = getUserRole(response.data.token);
+
       if (userRole === "admin") {
         navigate("/admin-dashboard");
       } else {
@@ -92,9 +93,14 @@ export default function Login() {
             >
               Login
             </button>
-            {message && <p className="text-center text-red-500 mt-4">{message}</p>}
+            {message && (
+              <p className="text-center text-red-500 mt-4">{message}</p>
+            )}
             <p className="text-center">
-              Don't have an account? <Link to="/register" className="text-blue-600">Sign Up</Link>
+              Don't have an account?{" "}
+              <Link to="/register" className="text-blue-600">
+                Sign Up
+              </Link>
             </p>
           </form>
         </div>

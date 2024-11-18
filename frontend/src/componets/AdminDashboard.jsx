@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FiMenu, FiX } from 'react-icons/fi'; 
-import { dashboardcard } from '../utils/data';
-import api from "../api"; 
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FiMenu, FiX } from "react-icons/fi";
+import { dashboardcard } from "../utils/data";
+import api from "../api";
 
 const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -12,9 +12,9 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await api.get("/users/all"); 
-        setUserLen(res.data.users.length); 
-        console.log(res.data.users.length); 
+        const res = await api.get("/users/all");
+        setUserLen(res.data.users.length);
+        console.log(res.data.users.length);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -26,9 +26,8 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await api.get("/rooms/all"); 
-        setRoomLen(res.data.length); 
-        
+        const res = await api.get("/rooms/all");
+        setRoomLen(res.data.length);
       } catch (error) {
         console.error("Error fetching rooms:", error);
       }
@@ -46,10 +45,13 @@ const AdminDashboard = () => {
       {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full bg-[#2A9E00] text-white p-5 transition-transform duration-300 z-40
-          ${sidebarOpen ? 'translate-x-0 top-[72px] lg:top-0' : '-translate-x-full lg:translate-x-0 top-[72px] lg:top-0'}
+          ${
+            sidebarOpen
+              ? "translate-x-0 top-[72px] lg:top-0"
+              : "-translate-x-full lg:translate-x-0 top-[72px] lg:top-0"
+          }
           lg:relative lg:translate-x-0 lg:w-64`}
       >
-        {/* Sidebar Close Button with Padding */}
         <button
           onClick={toggleSidebar}
           className="lg:hidden absolute top-0 right-4  text-2xl text-white focus:outline-none"
@@ -94,9 +96,7 @@ const AdminDashboard = () => {
         ></div>
       )}
 
-      {/* Main Content */}
       <div className="flex-1 p-8 transition-all duration-300">
-        {/* Sidebar Toggle Button */}
         <button
           onClick={toggleSidebar}
           className="lg:hidden mb-4 text-2xl text-[#2A9E00] p-2 rounded-lg focus:outline-none"
@@ -104,16 +104,23 @@ const AdminDashboard = () => {
           {sidebarOpen ? <FiX /> : <FiMenu />}
         </button>
 
-        <p className="text-3xl font-bold text-[#2A9E00]">Welcome to Admin Dashboard</p>
+        <p className="text-3xl font-bold text-[#2A9E00]">
+          Welcome to Admin Dashboard
+        </p>
 
         {/* Cards Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
           {dashboardcard.map((it) => (
             <div key={it.key} className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold text-[#2A9E00]">{it.name}</h3>
+              <h3 className="text-xl font-semibold text-[#2A9E00]">
+                {it.name}
+              </h3>
               <p className="text-2xl font-bold text-gray-700 mt-2">
-                {/* Conditional Rendering */}
-                {it.count === 'rooms' ? roomLen : it.count === 'users' ? userLen : it.count}
+                {it.count === "rooms"
+                  ? roomLen
+                  : it.count === "users"
+                  ? userLen
+                  : it.count}
               </p>
             </div>
           ))}
