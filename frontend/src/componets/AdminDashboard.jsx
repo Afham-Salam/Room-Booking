@@ -13,7 +13,7 @@ const AdminDashboard = () => {
     const fetchUsers = async () => {
       try {
         const res = await api.get("/users/all");
-        setUserLen(res.data.users.length);
+        setUserLen(res.data.users.length-1);
         console.log(res.data.users.length);
       } catch (error) {
         console.error("Error fetching users:", error);

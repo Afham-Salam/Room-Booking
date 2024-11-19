@@ -10,6 +10,7 @@ var cors = require('cors');  // Import CORS
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const { auth } = require('./middleware/authMiddleware');
+const cronjob = require('./cron');
 
 var app = express();
 
@@ -53,5 +54,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({ message: err.message, error: err });
 });
+
+// cronjob.start()
+
 
 module.exports = app;

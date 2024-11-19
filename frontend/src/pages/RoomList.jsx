@@ -79,7 +79,7 @@ export default function RoomList() {
       ))}
 
       {/* Form Component */}
-      {open && <Form room={selectedRoom} />}
+      {open && <Form roomId={selectedRoom} />}
     </div>
   );
 }

@@ -10,6 +10,7 @@ export default function Login() {
     password: "",
   });
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false); 
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -49,6 +50,10 @@ export default function Login() {
     }));
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <div className="w-full h-screen relative">
       {/* Form Section with Background Image */}
@@ -77,15 +82,25 @@ export default function Login() {
             />
 
             <label className="font-medium">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={userData.password}
-              onChange={handleChange}
-              className="p-2 border text-black rounded-md focus:outline-none focus:ring-2 focus:ring-lime-600"
-              placeholder="Password"
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"} // Dynamically set the input type
+                name="password"
+                value={userData.password}
+                onChange={handleChange}
+                className="w-full p-2 border text-black rounded-md focus:outline-none focus:ring-2 focus:ring-lime-600"
+                placeholder="Password"
+                required
+              />
+              {/* Toggle Button */}
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-2 flex items-center px-3 text-gray-500 hover:text-lime-600 focus:outline-none"
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
 
             <button
               type="submit"
