@@ -8,6 +8,7 @@ const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [roomLen, setRoomLen] = useState(0);
   const [userLen, setUserLen] = useState(0);
+  const [bookingLen, setBookingLen] = useState();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -34,6 +35,20 @@ const AdminDashboard = () => {
     };
 
     fetchRooms();
+  }, []);
+
+  useEffect(() => {
+    const fetchBooking = async () => {
+      try {
+        const res = await api.get("/bookings/all");
+        setBookingLen(res.data.length);
+        console.log(res.data.length)
+      } catch (error) {
+        console.error("Error fetching rooms:", error);
+      }
+    };
+
+    fetchBooking();
   }, []);
 
   const toggleSidebar = () => {
@@ -120,7 +135,7 @@ const AdminDashboard = () => {
                   ? roomLen
                   : it.count === "users"
                   ? userLen
-                  : it.count}
+                  : bookingLen}
               </p>
             </div>
           ))}

@@ -1,36 +1,86 @@
 import React, { useState } from "react";
 import api from "../api";
 
-export default function Form() {
+export default function Form({ roomId, userId }) {
   const [isFormVisible, setIsFormVisible] = useState(true);
   const [bookingData, setBookingData] = useState({
+    roomId: roomId , 
+    userId: userId || "67317f4bc56868b8019207e6", 
     bookingDate: "",
     startTime: "",
     endTime: "",
+    status: "confirmed", // Static status
   });
-  const [message, setMessage] = useState("");  
-  const [loading, setLoading] = useState(false); 
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     setBookingData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
+ 
+  const prepareBookingData = () => {
+    const { bookingDate, startTime, endTime } = bookingData;
+
+    const startDateTime = new Date(`${bookingDate}T${startTime}`);
+    const endDateTime = new Date(`${bookingDate}T${endTime}`);
+
+    return {
+      ...bookingData,
+      bookingDate: new Date(bookingDate).toISOString(),
+      startTime: startDateTime.toISOString(),
+      endTime: endDateTime.toISOString(),
+    };
+  };
+
+  // Validate the form
+  const validateBooking = () => {
+    const { bookingDate, startTime, endTime } = bookingData;
+
+    if (!bookingDate || !startTime || !endTime) {
+      setMessage("Please fill in all fields.");
+      return false;
+    }
+
+    const startDateTime = new Date(`${bookingDate}T${startTime}`);
+    const endDateTime = new Date(`${bookingDate}T${endTime}`);
+
+    if (startDateTime >= endDateTime) {
+      setMessage("Start time must be before end time.");
+      return false;
+    }
+
+    return true;
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    if (!validateBooking()) {
+      setLoading(false);
+      return;
+    }
+
+    const dataWithISOFormat = prepareBookingData();
+
     try {
-      const res = await api.post("/bookings/create", bookingData);
+      const res = await api.post("/bookings/create", dataWithISOFormat);
       console.log("Booking sent successfully:", res);
-      setMessage("Booking successful!");  
-      setIsFormVisible(false); 
+      setMessage("Booking successful!");
+      setIsFormVisible(false);
     } catch (error) {
       console.error("Error submitting booking data:", error);
-      setMessage("Error submitting booking data.");  
+      setMessage(
+        error.response?.data?.message || "Error submitting booking data."
+      );
     } finally {
       setLoading(false);
     }
@@ -40,7 +90,6 @@ export default function Form() {
     <>
       {isFormVisible && (
         <div className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center z-50">
-          
           <div className="relative w-full max-w-sm bg-white p-8 rounded-lg shadow-md border border-gray-200">
             <button
               onClick={() => setIsFormVisible(false)}
@@ -54,8 +103,18 @@ export default function Form() {
                 Book a Room
               </h2>
 
-          
-              {message && <p className="text-center text-green-500">{message}</p>}
+              {/* Display success or error message */}
+              {message && (
+                <p
+                  className={`text-center ${
+                    message.includes("successful")
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
+                  {message}
+                </p>
+              )}
 
               <div className="mb-4">
                 <label
@@ -114,7 +173,7 @@ export default function Form() {
               <button
                 type="submit"
                 className="w-full bg-[#2A9E00] text-white py-2 px-4 hover:bg-[#238200] active:bg-[#1E6E00] focus:outline-none focus:ring-2 focus:ring-green-400"
-                disabled={loading} 
+                disabled={loading}
               >
                 {loading ? "Submitting..." : "Confirm"}
               </button>
