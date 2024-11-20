@@ -26,7 +26,7 @@ export default function Login() {
       if (userRole === "admin") {
         navigate("/admin-dashboard");
       } else {
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Login failed");
@@ -76,7 +76,7 @@ export default function Login() {
               name="email"
               value={userData.email}
               onChange={handleChange}
-              className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-lime-600"
+              className="p-2 border text-black rounded-md focus:outline-none focus:ring-2 focus:ring-lime-600"
               placeholder="Email"
               required
             />

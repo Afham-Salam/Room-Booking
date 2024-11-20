@@ -8,7 +8,7 @@ export default function Navbar() {
 
   const logout = () => {
     localStorage.removeItem("token");
-    navigate("/"); // Redirects to the home or login page after logout
+    navigate("/login"); // Redirects to the home or login page after logout
   };
 
   const [menu, setMenu] = useState(false);

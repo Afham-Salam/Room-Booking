@@ -1,11 +1,13 @@
 export const roomDetails=[
     {
         key:"1",
-        title:"Total Room"
+        title:"Total Room",
+        count:"room"
     },
     {
         key:"2",
-        title:"Available Room"
+        title:"Available Room",
+        count:"avail"
     },
     
 ]
@@ -13,7 +15,7 @@ export const navitems = [
     {
       key:1,
       label:"Home",
-      path:"/home",
+      path:"/",
       
     },
     {

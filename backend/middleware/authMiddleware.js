@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
-  console.log({tokenauth: req.get("Authorization")});
+  // console.log({tokenauth: req.get("Authorization")});
   
   const token = req.get("Authorization").split(" ")[1];
 
-  console.log({token});
+  // console.log({token});
   
   
   if (!token) {
@@ -14,7 +14,7 @@ const auth = (req, res, next) => {
   
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);  
-    console.log({decoded});
+    // console.log({decoded});
     
     req.user = decoded;  
     next();  

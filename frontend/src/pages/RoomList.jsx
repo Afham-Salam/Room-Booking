@@ -61,7 +61,7 @@ export default function RoomList() {
               Features: {item.features.join(", ")}
             </p>
             <p className="text-left font-semibold">
-              Price per Hour: ₹ {item.pricePerHour}
+              Price per Day: ₹ {item.pricePerHour}
             </p>
             <p className="text-left font-semibold">
               Availability: {item.availability ? "Available" : "Not Available"}

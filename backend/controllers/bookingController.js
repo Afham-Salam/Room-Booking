@@ -25,8 +25,21 @@ exports.createBooking = async (req, res) => {
   
 
   exports.getUserBookings = async (req, res) => {
+    console.log("user data: ",req.user);
     try {
-      const bookings = await Booking.find({ userId: req.userId }).populate('roomId');
+      const bookings = await Booking.find().populate('roomId');
+      res.json(bookings);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  };
+
+  exports.getUserCurrentBookings = async (req, res) => {
+    try {
+
+      console.log("user data: ",req.user);
+      
+      const bookings = await Booking.find({userId: req.user.userId}).populate('roomId');
       res.json(bookings);
     } catch (err) {
       res.status(500).json({ error: err.message });

@@ -56,6 +56,9 @@ export default function UserManagement() {
     setEditId(null); // Exit edit mode without saving
   };
   const handleDelete = async (id) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this user?");
+  
+    if (!isConfirmed) return; 
     try {
       await api.delete(`/users/delete/${id}`);
       setRoomList((prev) => prev.filter((room) => room._id !== id));

@@ -242,7 +242,7 @@ export default function RoomManagement() {
                       </td>
                       <td className="px-4 py-2 border border-gray-300 text-center">
                         <button
-                          onClick={() => handleSave(room._id)} // Save edited room
+                          onClick={() => handleSave(room._id)} 
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -258,7 +258,7 @@ export default function RoomManagement() {
                           </svg>
                         </button>
                         <button
-                          onClick={handleCancel} // Cancel editing
+                          onClick={handleCancel} 
                           className="md:pl-2 "
                         >
                           <svg
@@ -284,7 +284,7 @@ export default function RoomManagement() {
                         {room.capacity}
                       </td>
                       <td className="px-4 py-2 border border-gray-300 text-sm">
-                        ${room.pricePerHour}
+                      &#8377; {room.pricePerHour}
                       </td>
                       <td className="px-4 py-2 border border-gray-300 text-center">
                         <button onClick={() => handleEditClick(room._id, room)}>

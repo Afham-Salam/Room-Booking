@@ -14,16 +14,18 @@ import Card from "../componets/Card";
 import RoomImage from "/room5.jpg";
 import Review from "../componets/Review";
 import { Link } from "react-router-dom";
-import api from "../api"; 
+import api from "../api";
 
 export default function Home() {
-const [len,setLen]=useState(0)
+  const [len, setLen] = useState(0);
+  const [availRoomLen, setAvailRoomLen] = useState(0);
+
   useEffect(() => {
     const fetchRooms = async () => {
       try {
         const res = await api.get("/rooms/all"); // Fetching data from API
         setLen(res.data.length);
-        console.log(res.data); // Debugging API response
+        console.log(res.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -31,9 +33,21 @@ const [len,setLen]=useState(0)
 
     fetchRooms();
   }, []);
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await api.get("/bookings/all"); // Fetching data from API
+        setAvailRoomLen(res.data.length);
+        console.log("avail", res.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetch();
+  }, []);
   return (
     <>
-      
       {/*slidder*/}
       <section className="h-1/2 w-full ">
         <Swiper
@@ -92,21 +106,33 @@ const [len,setLen]=useState(0)
                 <div class="flex items-center gap-4 w-full md:w-auto">
                   <div class="flex flex-col gap-2">
                     <strong class="text-[20px]  ">{item.title}</strong>
-                    <p class="text-[17px] text-black font-bold">{len}</p>
+                    <p className="text-[17px] text-black font-bold">
+                      {item.count === "room"
+                        ? len
+                        : item.count === "avail"
+                        ? len - availRoomLen
+                        : null}
+                    </p>
                   </div>
                 </div>
               ))}
 
               <div class="flex items-center gap-4 w-full md:w-auto"></div>
             </div>
-            <Link to="/room" className="bg-[#2A9E00] text-white py-2 px-10 rounded-sm hover:bg-[#238200] active:bg-[#1E6E00] focus:ring-2 focus:ring-offset-2 focus:ring-[#2A9E00] transition duration-200">
+            <Link
+              to="/room"
+              className="bg-[#2A9E00] text-white py-2 px-10 rounded-sm hover:bg-[#238200] active:bg-[#1E6E00] focus:ring-2 focus:ring-offset-2 focus:ring-[#2A9E00] transition duration-200"
+            >
               Book&nbsp;Now
             </Link>
           </div>
         </div>
       </section>
 
-      <section id="about" className="flex flex-col md:flex-row items-center justify-center  gap-10  p-6 md:p-10 lg:p-16 rounded-lg ">
+      <section
+        id="about"
+        className="flex flex-col md:flex-row items-center justify-center  gap-10  p-6 md:p-10 lg:p-16 rounded-lg "
+      >
         {/* Image Section */}
         <div className=" mb-6 lg:mb-0">
           <img
@@ -143,16 +169,13 @@ const [len,setLen]=useState(0)
         </p>
         <Card />
       </section>
-      
+
       <section className="w-full lg:h-screen flex-col   flex  items-center py-10">
         <p className="text-[35px] text-center py-10 font-semibold first-letter:text-[#2A9E00] first-letter:text-[50px]">
           Reviews
         </p>
-       <Review/>
+        <Review />
       </section>
-
-      
-
     </>
   );
 }
