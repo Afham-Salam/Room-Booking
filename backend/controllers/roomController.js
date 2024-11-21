@@ -2,20 +2,15 @@ const Room = require("../models/Room");
 
 exports.getRooms = async (req, res) => {
   try {
-    // Destructure role directly from the user object
     const { role } = req.user;
     
-    // Set availability based on user role, return all rooms if undefined
     const availability = role === 'user' ? true : undefined;
 
-    // Fetch rooms based on availability, if undefined, return all rooms
     const query = availability !== undefined ? { availability } : {};
     const rooms = await Room.find(query);
 
-    // Respond with the rooms
     res.json(rooms);
   } catch (error) {
-    // Return a standardized error message with status
     res.status(500).json({ error: error.message });
   }
 };

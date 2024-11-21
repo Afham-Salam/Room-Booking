@@ -9,6 +9,10 @@ export default function RoomList() {
   const [data, setData] = useState([]);
   const { user } = useUser();
 
+
+
+
+  
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -29,7 +33,7 @@ export default function RoomList() {
   };
 
   return (
-    <div className="sm:h-screen  p-5">
+    <div className="sm:h-screen md:h-fit p-5">
       {data.map((item) => (
         <div
           key={item._id}

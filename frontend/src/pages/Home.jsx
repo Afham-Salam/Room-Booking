@@ -108,9 +108,9 @@ export default function Home() {
                     <strong class="text-[20px]  ">{item.title}</strong>
                     <p className="text-[17px] text-black font-bold">
                       {item.count === "room"
-                        ? roomLen
+                        ? roomLen+availRoomLen
                         : item.count === "avail"
-                        ? roomLen - availRoomLen
+                        ?  (roomLen+availRoomLen)-availRoomLen
                         : null}
                     </p>
                   </div>
