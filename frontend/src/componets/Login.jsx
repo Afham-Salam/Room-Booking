@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import roomImage from "../assets/room.jpg";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
+
 
 export default function Login() {
   const navigate = useNavigate();
+  const { setUser } = useUser(); 
+
+  console.log("user id",setUser)
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
   const [message, setMessage] = useState("");
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,26 +24,27 @@ export default function Login() {
         "http://localhost:3000/api/auth/login",
         userData
       );
-      setMessage(response.data.message);
-      localStorage.setItem("token", response.data.token);
-      const userRole = getUserRole(response.data.token);
 
-      if (userRole === "admin") {
+      setMessage(response.data.message);
+
+      
+      localStorage.setItem("token", response.data.token);
+
+      
+      const payload = JSON.parse(atob(response.data.token.split(".")[1]));
+
+     
+      setUser({ userId: payload.userId, role: payload.role });
+      console.log("user details :",setUser)
+
+      // Redirect based on user role
+      if (payload.role === "admin") {
         navigate("/admin-dashboard");
       } else {
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       setMessage(error.response?.data?.message || "Login failed");
-    }
-  };
-
-  const getUserRole = (token) => {
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      return payload.role;
-    } catch {
-      return "";
     }
   };
 
@@ -56,17 +62,14 @@ export default function Login() {
 
   return (
     <div className="w-full h-screen relative">
-      {/* Form Section with Background Image */}
       <div
         className="w-full h-full flex items-center justify-center bg-cover bg-center"
         style={{
           backgroundImage: `url(${roomImage})`,
         }}
       >
-        {/* Dark overlay for text contrast */}
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
 
-        {/* Form Container */}
         <div className="relative text-white w-full max-w-md bg-white bg-opacity-30 p-8 rounded-md shadow-lg backdrop-blur-lg backdrop-filter z-10">
           <p className="text-[40px] font-bold mb-6">Login to Your Account</p>
           <form className="flex flex-col space-y-3" onSubmit={handleLogin}>
@@ -84,7 +87,7 @@ export default function Login() {
             <label className="font-medium">Password</label>
             <div className="relative">
               <input
-                type={showPassword ? "text" : "password"} // Dynamically set the input type
+                type={showPassword ? "text" : "password"}
                 name="password"
                 value={userData.password}
                 onChange={handleChange}
@@ -92,7 +95,7 @@ export default function Login() {
                 placeholder="Password"
                 required
               />
-              {/* Toggle Button */}
+
               <button
                 type="button"
                 onClick={togglePasswordVisibility}

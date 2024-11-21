@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import RoomImage from "/room1.jpg";
 import Form from "../componets/Form";
 import api from "../api";
+import { useUser } from "../context/UserContext";
 export default function RoomList() {
   const [open, setOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [data, setData] = useState([]);
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -27,11 +29,11 @@ export default function RoomList() {
   };
 
   return (
-    <div className="sm:h-screen p-5">
+    <div className="sm:h-screen  p-5">
       {data.map((item) => (
         <div
           key={item._id}
-          className="w-full mb-5 border-2 border-gray-200 shadow-lg flex flex-col md:flex-row md:justify-between md:items-center gap-5 p-5"
+          className="w-full mb-5 border-2 border-gray-200 shadow-md flex flex-col md:flex-row md:justify-between md:items-center gap-5 p-5"
         >
           {/* Room Image */}
           <img
@@ -78,7 +80,7 @@ export default function RoomList() {
       ))}
 
       {/* Form Component */}
-      {open && <Form roomId={selectedRoom} />}
+      {open && <Form userId={user}  />}
     </div>
   );
 }

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import api from "../api";
 
-export default function Form({ roomId, userId }) {
+export default function Form({userId,roomId}) {
   const [isFormVisible, setIsFormVisible] = useState(true);
   const [bookingData, setBookingData] = useState({
-    roomId: roomId , 
-    userId: userId || "67317f4bc56868b8019207e6", 
+    roomId: "673c95ea1a84f8bbe7ef89e6", 
+    userId: "67317f4bc56868b8019207e6", 
     bookingDate: "",
     startTime: "",
     endTime: "",

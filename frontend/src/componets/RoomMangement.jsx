@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "../api";
+import { Popconfirm } from "antd";
 
 export default function RoomManagement() {
   const [roomData, setRoomData] = useState({
@@ -19,7 +20,7 @@ export default function RoomManagement() {
     availability: true,
   });
 
-  // Fetch rooms from the API on component mount
+  
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -32,7 +33,7 @@ export default function RoomManagement() {
     fetchRooms();
   }, []);
 
-  // Handle input changes for adding new room
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setRoomData((prevData) => ({
@@ -59,7 +60,7 @@ export default function RoomManagement() {
     }
   };
 
-  // Handle clicking on edit
+  
   const handleEditClick = (id, currentData) => {
     setEditId(id);
     setEditFormData({
@@ -71,7 +72,7 @@ export default function RoomManagement() {
     });
   };
 
-  // Handle input changes for editing the room
+ 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setEditFormData((prevData) => ({
@@ -80,7 +81,7 @@ export default function RoomManagement() {
     }));
   };
 
-  // Handle saving the edited room
+  
   const handleSave = async (id) => {
     try {
       await api.put(`/rooms/edit/${editId}`, editFormData);
@@ -89,18 +90,18 @@ export default function RoomManagement() {
           room._id === editId ? { ...room, ...editFormData } : room
         )
       );
-      setEditId(null); // Exit edit mode
+      setEditId(null); 
     } catch (error) {
       console.error("Error updating room:", error);
     }
   };
 
-  // Handle canceling the edit
+
   const handleCancel = () => {
-    setEditId(null); // Exit edit mode
+    setEditId(null); 
   };
 
-  // Handle deleting a room
+  
   const handleDelete = async (id) => {
     try {
       await api.delete(`/rooms/delete/${id}`);
@@ -241,9 +242,7 @@ export default function RoomManagement() {
                         />
                       </td>
                       <td className="px-4 py-2 border border-gray-300 text-center">
-                        <button
-                          onClick={() => handleSave(room._id)} 
-                        >
+                        <button onClick={() => handleSave(room._id)}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -257,10 +256,7 @@ export default function RoomManagement() {
                             />
                           </svg>
                         </button>
-                        <button
-                          onClick={handleCancel} 
-                          className="md:pl-2 "
-                        >
+                        <button onClick={handleCancel} className="md:pl-2 ">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -284,7 +280,7 @@ export default function RoomManagement() {
                         {room.capacity}
                       </td>
                       <td className="px-4 py-2 border border-gray-300 text-sm">
-                      &#8377; {room.pricePerHour}
+                        &#8377; {room.pricePerHour}
                       </td>
                       <td className="px-4 py-2 border border-gray-300 text-center">
                         <button onClick={() => handleEditClick(room._id, room)}>
@@ -300,22 +296,26 @@ export default function RoomManagement() {
                             />
                           </svg>
                         </button>
-                        <button
-                          onClick={() => handleDelete(room._id)}
-                          className="md:pl-2"
+                        <Popconfirm
+                          title="Are you sure you want to delete this room?"
+                          onConfirm={() => handleDelete(room._id)}
+                          okText="Yes"
+                          cancelText="No"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="red"
-                              d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"
-                            />
-                          </svg>
-                        </button>
+                          <button className="md:pl-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="red"
+                                d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"
+                              />
+                            </svg>
+                          </button>
+                        </Popconfirm>
                       </td>
                     </>
                   )}

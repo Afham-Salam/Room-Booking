@@ -15,7 +15,7 @@ export const navitems = [
     {
       key:1,
       label:"Home",
-      path:"/",
+      path:"/home",
       
     },
     {

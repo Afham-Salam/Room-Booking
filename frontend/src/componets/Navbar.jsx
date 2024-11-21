@@ -1,23 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { navitems } from "../utils/data";
 import { NavLink, useNavigate } from "react-router-dom";
 import MobileMenu from "./Mobilemenu";
+import { Drawer, Button } from "antd"; 
+import { IoPersonSharp } from "react-icons/io5";
+import api from "../api";
 
 export default function Navbar() {
-  const navigate = useNavigate(); // Correct usage of useNavigate
+  const navigate = useNavigate(); 
+  const [menu, setMenu] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false); 
+  const [userData, setUserData] = useState([]); 
 
   const logout = () => {
     localStorage.removeItem("token");
-    navigate("/login"); // Redirects to the home or login page after logout
+    navigate("/login"); 
   };
 
-  const [menu, setMenu] = useState(false);
+  const showDrawer = () => {
+    setDrawerVisible(true); 
+  };
+
+  const onClose = () => {
+    setDrawerVisible(false); 
+  };
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await api.get("/users/me");
+        console.log("user:",res.data)
+        setUserData(res.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetch();
+  }, []);
 
   return (
     <div className="flex items-center justify-between w-full h-[70px] relative z-[100] shadow-md px-4 md:px-6 lg:px-10">
-      {/* Mobile Menu Toggle and Logo */}
+      
       <div className="flex items-center w-full lg:w-auto">
-        {/* Mobile menu icon */}
+        
         <div className="lg:hidden">
           <svg
             onClick={() => setMenu(!menu)}
@@ -42,7 +66,7 @@ export default function Navbar() {
           {menu && <MobileMenu />}
         </div>
 
-        {/* Logo */}
+        
         <div className="flex-grow lg:flex-grow-0 p-4">
           <p className="text-[20px] md:text-[25px] font-bold tracking-widest">
             <span className="text-[#2A9E00]">Book</span>a
@@ -51,7 +75,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Desktop Navigation Links */}
+      
       <div className="hidden lg:flex gap-8 items-center">
         {navitems.map((it) => (
           <NavLink
@@ -64,12 +88,20 @@ export default function Navbar() {
         ))}
       </div>
 
-      {/* Profile Icon */}
-      <div
-        onClick={logout}
-        className="flex items-center gap-4 ml-auto lg:ml-0 cursor-pointer"
-      >
+      
+      <div className="flex items-center gap-2 ml-auto lg:ml-0 cursor-pointer">
+        
+        <Button
+          type="link"
+          onClick={showDrawer}
+          className="text-[#2A9E00] hover:text-black font-bold text-[24px]"
+        >
+          <IoPersonSharp />
+        </Button>
+
+        
         <svg
+          onClick={logout}
           xmlns="http://www.w3.org/2000/svg"
           width="25"
           height="25"
@@ -78,14 +110,37 @@ export default function Navbar() {
           <path
             fill="none"
             stroke="black"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
             d="M7.023 5.5a9 9 0 1 0 9.953 0M12 2v8"
             color="black"
           />
         </svg>
       </div>
+
+      <Drawer
+        title="My Profile"
+        placement="right"
+        onClose={onClose}
+        visible={drawerVisible}
+        width={300} 
+      >
+        
+       
+        {userData && (
+         <>
+         <p>
+         Name: {userData?.name ? userData.name.charAt(0).toUpperCase() + userData.name.slice(1) : "N/A"}
+         </p>
+         <p className="mt-10">Email: {userData.email}</p>
+       </>
+       
+        )}
+       
+        
+       
+      </Drawer>
     </div>
   );
 }

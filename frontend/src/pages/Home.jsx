@@ -17,15 +17,15 @@ import { Link } from "react-router-dom";
 import api from "../api";
 
 export default function Home() {
-  const [len, setLen] = useState(0);
+  const [roomLen, setLen] = useState(0);
   const [availRoomLen, setAvailRoomLen] = useState(0);
 
   useEffect(() => {
     const fetchRooms = async () => {
       try {
         const res = await api.get("/rooms/all"); // Fetching data from API
-        setLen(res.data.length);
         console.log(res.data);
+        setLen(res.data.length);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -108,9 +108,9 @@ export default function Home() {
                     <strong class="text-[20px]  ">{item.title}</strong>
                     <p className="text-[17px] text-black font-bold">
                       {item.count === "room"
-                        ? len
+                        ? roomLen
                         : item.count === "avail"
-                        ? len - availRoomLen
+                        ? roomLen - availRoomLen
                         : null}
                     </p>
                   </div>

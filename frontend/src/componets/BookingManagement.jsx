@@ -54,7 +54,7 @@ export default function BookingManagement() {
                 data.map((item) => (
                   <tr key={item._id} className="hover:bg-gray-100">
                     <td className="px-3 py-2 border border-gray-300 text-xs sm:text-sm md:text-base break-words">
-                      {item.roomId.roomName}
+                    {item.roomId?.roomName}
                     </td>
                     <td className="px-3 py-2 border border-gray-300 text-xs sm:text-sm md:text-base break-words">
                       {item.userId}

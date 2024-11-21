@@ -5,6 +5,7 @@ import App from './App.jsx';
 import React from 'react';
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider,
 } from "react-router-dom";
 import Index from './pages/Index.jsx';
@@ -19,6 +20,7 @@ import ProtectedRoute from './componets/ProtectedRoute.jsx'; // Import the Prote
 import RoomList from './pages/RoomList.jsx';
 import Contact from './pages/Contact.jsx';
 import YourBooking from './pages/YourBooking.jsx';
+import { UserProvider } from './context/UserContext.jsx';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +28,11 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/',
+        path: "/",
+        element: <Navigate to="/register" />, // Redirect to the register page
+      },
+      {
+        path: '/home',
         element: <Home />,
       },
       {
@@ -79,6 +85,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+     <UserProvider>
     <RouterProvider router={router} />
+    </UserProvider>
   </StrictMode>
 );

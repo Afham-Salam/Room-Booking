@@ -7,6 +7,8 @@ exports.createBooking = async (req, res) => {
   
     try {
       const room = await Room.findById(roomId);
+      console.log({room})
+
       if (!room || !room.availability) {
         return res.status(400).json({ message: 'Room not available' });
       }

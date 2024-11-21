@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { message, Popconfirm } from "antd";
 import api from "../api";
 
 export default function UserManagement() {
@@ -40,30 +41,31 @@ export default function UserManagement() {
     try {
       await api.put(`/users/edit/${id}`, editFormData);
 
-      // Update the UI after successful save
+      
       setData((prevData) =>
         prevData.map((user) =>
           user._id === id ? { ...user, ...editFormData } : user
         )
       );
-      setEditId(null); // Exit edit mode
+      setEditId(null); 
     } catch (error) {
       console.error("Error updating user:", error);
     }
   };
 
   const handleCancel = () => {
-    setEditId(null); // Exit edit mode without saving
+    setEditId(null); 
   };
+
   const handleDelete = async (id) => {
-    const isConfirmed = window.confirm("Are you sure you want to delete this user?");
-  
-    if (!isConfirmed) return; 
     try {
       await api.delete(`/users/delete/${id}`);
-      setRoomList((prev) => prev.filter((room) => room._id !== id));
+      
+      setData((prev) => prev.filter((user) => user._id !== id));
+      message.success("User deleted successfully.");
     } catch (error) {
-      console.error("Error deleting room:", error);
+      console.error("Error deleting user:", error);
+      message.error("Failed to delete the user.");
     }
   };
 
@@ -92,7 +94,7 @@ export default function UserManagement() {
             <tbody>
               {data.map((item) => (
                 <tr key={item._id} className="hover:bg-gray-100">
-                  {/* Conditional rendering for Edit Mode */}
+                  
                   {editId === item._id ? (
                     <>
                       <td className="px-4 py-2 border border-gray-300 text-sm">
@@ -137,7 +139,7 @@ export default function UserManagement() {
                             />
                           </svg>
                         </button>
-                        <button onClick={handleCancel} className="md:pl-2 ">
+                        <button onClick={handleCancel} className="md:pl-2">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -164,7 +166,10 @@ export default function UserManagement() {
                         {item.role}
                       </td>
                       <td className="px-4 py-2 border border-gray-300 text-center">
-                        <button onClick={() => handleEditClick(item._id, item)}>
+                        <button
+                          onClick={() => handleEditClick(item._id, item)}
+                          className="mr-2"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -177,22 +182,29 @@ export default function UserManagement() {
                             />
                           </svg>
                         </button>
-                        <button
-                          onClick={() => handleDelete(item._id)}
-                          className="md:pl-2"
+                        
+                        <Popconfirm
+                          title="Delete the user"
+                          description="Are you sure you want to delete this user?"
+                          onConfirm={() => handleDelete(item._id)}
+                          onCancel={() => message.info("Cancelled deletion.")}
+                          okText="Yes"
+                          cancelText="No"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              fill="red"
-                              d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"
-                            />
-                          </svg>
-                        </button>
+                          <button className="md:pl-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                fill="red"
+                                d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"
+                              />
+                            </svg>
+                          </button>
+                        </Popconfirm>
                       </td>
                     </>
                   )}
