@@ -1,37 +1,45 @@
 const cron = require('node-cron');
 const Room = require('../models/Room');
+const Booking = require('../models/Booking');
 
-const cronjob = cron.schedule('*/5 * * * *', () => {
-  console.log('running a task every minute');
-  getBookings().then(bookings => {
+// Function to check and update room availability
+const checkAvailability = async () => {
+  const now = new Date();
+  try {
+    console.log({ now });
+    const gBookings = await Booking.find();
+    console.log({gBookings});
     
-    bookings.forEach(booking => {
-      const currentTime = new Date();
-      const endDate = new Date(booking.endDate);
+    const expiredBookings = await Booking.find({ endTime: { $lt: now } });
+    console.log({ expiredBookings });
 
-      if (endDate < currentTime) {
-        resetRoomAvailability(booking.roomId);
-        console.log(`Room ${booking.roomId} is now available.`);
-      }
-    });
-  }).catch(error => {
-    console.error('Error fetching bookings:', error);
-  });
-});
-
-const resetRoomAvailability = async (roomId) => {
-    try {
-      const room = await Room.findById(roomId);
-      if (room) {
-        room.available = true; 
-        await room.save();  
-        console.log(`Room ${roomId} availability  reset.`);
-      } else {
-        console.log(`Room ${roomId} not found.`);
-      }
-    } catch (error) {
-      console.error(`Error resetting room availability for room ${roomId}:`, error);
+    for (const booking of expiredBookings) {
+      await Room.findByIdAndUpdate(booking.roomId, { availability: true });
+      console.log(`Room ${booking.roomId} is now available (Booking ID: ${booking._id}).`);
+    
     }
-  };
-  
-module.exports = cronjob
+
+    if (expiredBookings.length === 0) {
+      console.log('No expired bookings found.');
+    } else {
+      console.log('Room availability updates completed.');
+    }
+
+    return 
+  } catch (error) {
+    console.error('Error updating room availability:', error);
+  }
+};
+
+// Schedule the cron job but do not start it automatically
+const cronjob = cron.schedule(
+  '*/5 * * * *',
+  async () => {
+    console.log('Running a task to check and update room availability...');
+    await checkAvailability();
+  },
+  { scheduled: false } // Disable auto-start
+);
+
+// Export both the cronjob and the checkAvailability function
+module.exports = { cronjob, checkAvailability };

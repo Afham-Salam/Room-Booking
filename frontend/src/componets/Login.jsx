@@ -1,41 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import roomImage from "../assets/room.jpg";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
-
+import api from "../api";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setUser } = useUser(); 
+ 
 
-  console.log("user id",setUser)
+
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
   const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [UserId, setUserId] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
+      const response = await api.post(
+        "/auth/login",
         userData
       );
 
       setMessage(response.data.message);
-
-      
-      localStorage.setItem("token", response.data.token);
-
-      
-      const payload = JSON.parse(atob(response.data.token.split(".")[1]));
-
      
-      setUser({ userId: payload.userId, role: payload.role });
-      console.log("user details :",setUser)
+      localStorage.setItem("token", response.data.token);
+      const payload = JSON.parse(atob(response.data.token.split(".")[1]));
+      localStorage.setItem("userId", payload.userId);
+      
+      
+      
 
       // Redirect based on user role
       if (payload.role === "admin") {
@@ -47,6 +45,19 @@ export default function Login() {
       setMessage(error.response?.data?.message || "Login failed");
     }
   };
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const res = await api.get("/users/me");
+        setUserId(res.data);
+        console.log("user Id:",UserId)
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetch();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

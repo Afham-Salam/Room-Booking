@@ -55,7 +55,7 @@ app.use(function(err, req, res, next) {
   res.json({ message: err.message, error: err });
 });
 
- cronjob.start()
+ cronjob.cronjob.start()
 
 
 module.exports = app;

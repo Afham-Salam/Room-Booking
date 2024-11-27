@@ -1,3 +1,4 @@
+const {  checkAvailability } = require('../cron');
 const Booking = require('../models/Booking');
 const Room = require('../models/Room');
 
@@ -27,6 +28,7 @@ exports.createBooking = async (req, res) => {
   
 
   exports.getUserBookings = async (req, res) => {
+    
     console.log("user data: ",req.user);
     try {
       const bookings = await Booking.find().populate('roomId');
@@ -38,7 +40,7 @@ exports.createBooking = async (req, res) => {
 
   exports.getUserCurrentBookings = async (req, res) => {
     try {
-
+    
       console.log("user data: ",req.user);
       
       const bookings = await Booking.find({userId: req.user.userId}).populate('roomId');
@@ -47,3 +49,14 @@ exports.createBooking = async (req, res) => {
       res.status(500).json({ error: err.message });
     }
   };
+  
+
+  exports.checkAvailbilityHandler = async(req, res) => {
+    try {
+      await checkAvailability()
+      return res.json("Hello")
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+      
+    }
+  }

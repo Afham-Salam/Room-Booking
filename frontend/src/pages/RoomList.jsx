@@ -3,16 +3,14 @@ import RoomImage from "/room1.jpg";
 import Form from "../componets/Form";
 import api from "../api";
 import { useUser } from "../context/UserContext";
+
 export default function RoomList() {
   const [open, setOpen] = useState(false);
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [selectedRoomId, setSelectedRoomId] = useState(null);
   const [data, setData] = useState([]);
-  const { user } = useUser();
-
-
-
-
+  const userId = localStorage.getItem('userId');
   
+
   useEffect(() => {
     const fetchRooms = async () => {
       try {
@@ -27,9 +25,14 @@ export default function RoomList() {
     fetchRooms();
   }, []);
 
-  const handleBookNow = (room) => {
-    setSelectedRoom(room);
+  const handleBookNow = (roomId) => {
+    setSelectedRoomId(roomId);
     setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+    setSelectedRoomId(null);
   };
 
   return (
@@ -49,6 +52,7 @@ export default function RoomList() {
           {/* Room Details */}
           <div className="grid grid-rows-3 gap-4 lg:gap-x-96 md:grid-cols-2 md:gap-x-12">
             <p className="text-left font-semibold">Name: {item.roomName}</p>
+            
             <p className="text-left flex items-center gap-2 font-semibold">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +79,7 @@ export default function RoomList() {
           </div>
 
           <button
-            onClick={() => handleBookNow()}
+            onClick={() => handleBookNow(item._id)}
             className="bg-[#2A9E00] text-white py-2 px-10 rounded-sm hover:bg-[#238200]"
           >
             Book&nbsp;Now
@@ -83,8 +87,14 @@ export default function RoomList() {
         </div>
       ))}
 
-      {/* Form Component */}
-      {open && <Form userId={user}  />}
+      {/* Form Modal */}
+      {open && (
+        <Form
+          userId={userId}
+          roomId={selectedRoomId}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 }
