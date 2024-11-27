@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import roomImage from "../assets/room.jpg";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../api";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
@@ -16,10 +17,11 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/register",
-        userData
-      );
+      // const response = await axios.post(
+      //   "http://localhost:3000/api/auth/register",
+      //   userData
+      // );
+      const response = await api.post("/auth/register", userData)
       setMessage(response.data.message);
       localStorage.setItem("token", response.data.token);
       navigate("/login");
