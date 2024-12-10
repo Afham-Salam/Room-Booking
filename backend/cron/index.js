@@ -33,7 +33,7 @@ const checkAvailability = async () => {
 
 // Schedule the cron job but do not start it automatically
 const cronjob = cron.schedule(
-  '*/5 * * * *',
+  '0 9 * * *',
   async () => {
     console.log('Running a task to check and update room availability...');
     await checkAvailability();

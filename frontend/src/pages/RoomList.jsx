@@ -7,7 +7,7 @@ import { useUser } from "../context/UserContext";
 export default function RoomList() {
   const [open, setOpen] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState(null);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); 
   const userId = localStorage.getItem('userId');
   
 
