@@ -4,27 +4,26 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-[#C7E3BE]  font-semibold p-8 md:p-12 border-t-2">
-      <div className=" mx-auto flex flex-col md:flex-row md:justify-between gap-8">
+    <footer id="contact" className="bg-[#89b47a] font-semibold p-8 md:p-12 border-t-2">
+      <div className="mx-auto max-w-screen-xl flex flex-col md:flex-row justify-between gap-12">
+        
         {/* Brand Section */}
-        <aside className=" md:text-left">
-          <p className="text-[20px] md:text-[25px] text-black font-bold tracking-widest">
+        <aside className="text-center md:text-left">
+          <p className="text-[20px] md:text-[25px] text-black font-extrabold tracking-widest">
             <span className="text-[#2A9E00]">Book</span>a
             <span className="text-[#2A9E00]">Room</span>
           </p>
-          <p className="mt-2 text-gray-700">
-            Book Your Room
-          </p>
+          <p className="mt-2 text-gray-700">Book Your Room</p>
         </aside>
 
         {/* Navigation Links */}
         <aside className="text-center md:text-left">
-          <ul className="flex flex-col items-start md:items-start gap-4">
+          <ul className="flex flex-col items-center md:items-start gap-6">
             {navitems.map((item) => (
               <li key={item.label}>
                 <Link
                   to={item.path}
-                  className="text-black hover:text-[#2A9E00] transition-colors duration-200"
+                  className="text-black hover:text-[#2A9E00] transition-colors duration-300"
                 >
                   {item.label}
                 </Link>
@@ -34,11 +33,9 @@ export default function Footer() {
         </aside>
 
         {/* Social Media Links */}
-        <nav className=" md:text-left">
-          <h6 className="text-lg text-black font-semibold mb-4">
-            Connect with us
-          </h6>
-          <div className="flex  md:justify-start gap-4">
+        <nav className="text-center md:text-left">
+          <h6 className="text-lg font-semibold text-black mb-4">Connect with us</h6>
+          <div className="flex justify-center md:justify-start gap-6">
             <a
               href="https://twitter.com"
               aria-label="Twitter"

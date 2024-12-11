@@ -31,7 +31,7 @@ exports.createBooking = async (req, res) => {
     
     console.log("user data: ",req.user);
     try {
-      const bookings = await Booking.find().populate('roomId');
+      const bookings = await Booking.find().populate('roomId') .populate('userId', 'name email');
       res.json(bookings);
     } catch (err) {
       res.status(500).json({ error: err.message });
